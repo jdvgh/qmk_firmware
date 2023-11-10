@@ -6,7 +6,7 @@ BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE         = yes
 CONSOLE_ENABLE          = no
 COMMAND_ENABLE          = no
-
+CAPS_WORD_ENABLE		= yes
 RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = no
 

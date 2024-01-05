@@ -9,7 +9,7 @@ COMMAND_ENABLE          = no
 CAPS_WORD_ENABLE		= yes
 RGBLIGHT_ENABLE         = no
 RGB_MATRIX_ENABLE       = no
-
+DYNAMIC_TAPPING_TERM_ENABLE = yes
 OLED_ENABLE     = yes
 
 

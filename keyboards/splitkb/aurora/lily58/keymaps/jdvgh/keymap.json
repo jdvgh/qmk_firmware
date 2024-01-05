@@ -369,9 +369,9 @@
     [
       "KC_NO",
       "KC_NO",
-      "KC_NO",
-      "KC_NO",
-      "KC_NO",
+      "QK_DYNAMIC_TAPPING_TERM_DOWN",
+      "QK_DYNAMIC_TAPPING_TERM_UP",
+      "QK_DYNAMIC_TAPPING_TERM_PRINT",
       "KC_NO",
       "SGUI(KC_6)",
       "SGUI(KC_7)",

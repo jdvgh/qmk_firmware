@@ -18,7 +18,9 @@
 
 // The first four layers gets a name for readability, which is then used in the OLED below.
 enum layers {
-_ALPHA,
+_ALPHA_COLEMAK_DH,
+_ALPHA_QWERTY,
+_ALPHA_COLEMAK_DH_BACKUP,
 _NAV,
 _MOUSE,
 _NUMSRIGHT,
@@ -202,8 +204,12 @@ void render_layer_state(void) {
 
     // oled_write_P(PSTR("Layer"), false);
     render_space();
-    if(layer_state_is(_ALPHA)){
-    oled_write_P(PSTR("Alpha"), false);
+    if(layer_state_is(_ALPHA_COLEMAK_DH)){
+    oled_write_P(PSTR("COLEM"), false);
+} else if(layer_state_is(_ALPHA_QWERTY)){
+    oled_write_P(PSTR("QWERT"), false);
+} else if(layer_state_is(_ALPHA_COLEMAK_DH_BACKUP)){
+    oled_write_P(PSTR("COLBU"), false);
 } else if(layer_state_is(_NAV)){
     oled_write_P(PSTR("Nav->"), false);
 } else if(layer_state_is(_MOUSE)){

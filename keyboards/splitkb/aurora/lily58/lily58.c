@@ -18,10 +18,15 @@
 
 // The first four layers gets a name for readability, which is then used in the OLED below.
 enum layers {
-  _DEFAULT,
-  _LOWER,
-  _RAISE,
-  _ADJUST
+_ALPHA_COLEMAK_DH,
+_ALPHA_QWERTY,
+_ALPHA_COLEMAK_DH_BACKUP,
+_NAV,
+_MOUSE,
+_NUMSRIGHT,
+_NUMSLEFT,
+_SYMBOLSLEFT,
+_FKEYSLEFT
 };
 
 #ifdef OLED_ENABLE
@@ -196,36 +201,57 @@ void render_kb_LED_state(void) {
 }
 
 void render_layer_state(void) {
-    static const char PROGMEM default_layer[] = {
-        0x20, 0x94, 0x95, 0x96, 0x20,
-        0x20, 0xb4, 0xb5, 0xb6, 0x20,
-        0x20, 0xd4, 0xd5, 0xd6, 0x20, 0};
-    static const char PROGMEM raise_layer[] = {
-        0x20, 0x97, 0x98, 0x99, 0x20,
-        0x20, 0xb7, 0xb8, 0xb9, 0x20,
-        0x20, 0xd7, 0xd8, 0xd9, 0x20, 0};
-    static const char PROGMEM lower_layer[] = {
-        0x20, 0x9a, 0x9b, 0x9c, 0x20,
-        0x20, 0xba, 0xbb, 0xbc, 0x20,
-        0x20, 0xda, 0xdb, 0xdc, 0x20, 0};
-    static const char PROGMEM adjust_layer[] = {
-        0x20, 0x9d, 0x9e, 0x9f, 0x20,
-        0x20, 0xbd, 0xbe, 0xbf, 0x20,
-        0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
 
-    switch (get_highest_layer(layer_state | default_layer_state)) {
-        case _LOWER:
-            oled_write_P(lower_layer, false);
-            break;
-        case _RAISE:
-            oled_write_P(raise_layer, false);
-            break;
-        case _ADJUST:
-            oled_write_P(adjust_layer, false);
-            break;
-        default:
-            oled_write_P(default_layer, false);
-    }
+    // oled_write_P(PSTR("Layer"), false);
+    render_space();
+    if(layer_state_is(_ALPHA_COLEMAK_DH)){
+    oled_write_P(PSTR("COLEM"), false);
+} else if(layer_state_is(_ALPHA_QWERTY)){
+    oled_write_P(PSTR("QWERT"), false);
+} else if(layer_state_is(_ALPHA_COLEMAK_DH_BACKUP)){
+    oled_write_P(PSTR("COLBU"), false);
+} else if(layer_state_is(_NAV)){
+    oled_write_P(PSTR("Nav->"), false);
+} else if(layer_state_is(_MOUSE)){
+    oled_write_P(PSTR("Mou->"), false);
+} else if(layer_state_is(_NUMSRIGHT)){
+    oled_write_P(PSTR("Num->"), false);
+} else if(layer_state_is(_NUMSLEFT)){
+    oled_write_P(PSTR("<-Num"), false);
+} else if(layer_state_is(_SYMBOLSLEFT)){
+    oled_write_P(PSTR("<-Sym"), false);
+} else if(layer_state_is(_FKEYSLEFT)){
+    oled_write_P(PSTR("<-Fxx"), false);
+} else {
+    oled_write_P(PSTR("NaN"), false);
+
+}
+
+    // static const char PROGMEM default_layer[] = {
+    //     0x20, 0x94, 0x95, 0x96, 0x20,
+    //     0x20, 0xb4, 0xb5, 0xb6, 0x20,
+    //     0x20, 0xd4, 0xd5, 0xd6, 0x20, 0};
+    // static const char PROGMEM raise_layer[] = {
+    //     0x20, 0x97, 0x98, 0x99, 0x20,
+    //     0x20, 0xb7, 0xb8, 0xb9, 0x20,
+    //     0x20, 0xd7, 0xd8, 0xd9, 0x20, 0};
+    // static const char PROGMEM lower_layer[] = {
+    //     0x20, 0x9a, 0x9b, 0x9c, 0x20,
+    //     0x20, 0xba, 0xbb, 0xbc, 0x20,
+    //     0x20, 0xda, 0xdb, 0xdc, 0x20, 0};
+    // static const char PROGMEM adjust_layer[] = {
+    //     0x20, 0x9d, 0x9e, 0x9f, 0x20,
+    //     0x20, 0xbd, 0xbe, 0xbf, 0x20,
+    //     0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
+    // if(layer_state_is(_LOWER)) {
+    //     oled_write_P(lower_layer, false);
+    // } else if(layer_state_is(_RAISE)) {
+    //     oled_write_P(raise_layer, false);
+    // } else if(layer_state_is(_DEFAULT)) {
+    //     oled_write_P(default_layer, false);
+    // } else {
+    //     oled_write_P(adjust_layer, false);
+    // }
 }
 
 
@@ -234,6 +260,7 @@ bool oled_task_kb(void) {
         return false;
     }
     if (is_keyboard_master()) {
+    // if (true) {
         // Renders the current keyboard state (layers and mods)
         render_logo();
         render_logo_text();
@@ -242,7 +269,7 @@ bool oled_task_kb(void) {
         render_space();
         render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
         render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
-        render_kb_LED_state();
+        // render_kb_LED_state();
     } else {
         // clang-format off
         static const char PROGMEM aurora_art[] = {

@@ -1,0 +1,11 @@
+version: '3'
+tasks:
+  compile:
+      cmds:
+        - qmk compile  -e CONVERT_TO=liatris -kb splitkb/aurora/lily58/rev1 -km jdvgh
+  flash:
+      cmds:
+        - qmk flash -kb splitkb/aurora/lily58/rev1 -km jdvgh
+
+
+
